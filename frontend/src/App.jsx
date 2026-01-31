@@ -4,16 +4,16 @@ import Auth from './components/Auth';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://ardentix-task.onrender.com/api';
 
 function App() {
-  // State variables
+
   const [user, setUser] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [editTask, setEditTask] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Check if user is already logged in when app loads
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
@@ -26,7 +26,7 @@ function App() {
     }
   }, []);
 
-  // Get all tasks from backend
+
   const fetchTasks = async (token) => {
     try {
       const response = await axios.get(`${API_URL}/tasks`, {
@@ -43,13 +43,11 @@ function App() {
     }
   };
 
-  // When user logs in
   const handleLogin = (userData) => {
     setUser(userData);
     fetchTasks();
   };
 
-  // When user logs out
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -57,13 +55,12 @@ function App() {
     setTasks([]);
   };
 
-  // Create new task or update existing task
   const handleTaskSubmit = async (formData) => {
     const token = localStorage.getItem('token');
     
     try {
       if (editTask) {
-        // Update existing task
+    
         const response = await axios.put(
           `${API_URL}/tasks/${editTask._id}`,
           formData,
@@ -72,7 +69,7 @@ function App() {
         setTasks(tasks.map(t => t._id === editTask._id ? response.data : t));
         setEditTask(null);
       } else {
-        // Create new task
+     
         const response = await axios.post(
           `${API_URL}/tasks`,
           formData,
@@ -86,7 +83,6 @@ function App() {
     }
   };
 
-  // Mark task as complete/incomplete
   const handleToggleTask = async (task) => {
     const token = localStorage.getItem('token');
     
@@ -102,7 +98,6 @@ function App() {
     }
   };
 
-  // Delete a task
   const handleDeleteTask = async (taskId) => {
     if (!window.confirm('Delete this task?')) return;
 
@@ -118,7 +113,6 @@ function App() {
     }
   };
 
-  // Loading screen
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900 flex items-center justify-center">
@@ -127,25 +121,21 @@ function App() {
     );
   }
 
-  // Show login page if not logged in
   if (!user) {
     return <Auth onLogin={handleLogin} />;
   }
 
-  // Main dashboard
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900">
-      {/* Background decorations */}
+      
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full opacity-20 blur-3xl animate-float"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-cyan-500 rounded-full opacity-20 blur-3xl animate-float"></div>
       </div>
 
-      {/* Main content */}
       <div className="relative min-h-screen py-8 px-4">
         <div className="max-w-4xl mx-auto">
           
-          {/* Header */}
           <div className="glass rounded-xl p-6 mb-6 shadow-lg border border-blue-400/20">
             <div className="flex justify-between items-center">
               <div>
@@ -162,7 +152,6 @@ function App() {
             </div>
           </div>
 
-          {/* Stats */}
           <div className="grid grid-cols-3 gap-4 mb-6">
             <div className="glass rounded-xl p-4 text-center border border-blue-400/20">
               <p className="text-3xl font-bold text-white">{tasks.length}</p>
@@ -178,14 +167,13 @@ function App() {
             </div>
           </div>
 
-          {/* Task Form */}
+   
           <TaskForm
             onSubmit={handleTaskSubmit}
             editTask={editTask}
             onCancel={() => setEditTask(null)}
           />
 
-          {/* Task List */}
           <TaskList
             tasks={tasks}
             onToggle={handleToggleTask}
