@@ -79,11 +79,11 @@ The app will open at `http://localhost:3000`
 - Input validation on both frontend and backend
 
 ## Screenshots
+<img width="1917" height="899" alt="image" src="https://github.com/user-attachments/assets/b2cf5398-33b5-469c-ab15-6516538e0de8" />
+<img width="1919" height="906" alt="image" src="https://github.com/user-attachments/assets/4a1d5c7d-e402-4cfe-90cc-6c3049d0608d" />
+<img width="1919" height="906" alt="image" src="https://github.com/user-attachments/assets/1a61db18-783d-43e8-9be1-df92c610b847" />
 
-- Clean login/register interface with glassmorphism effects
-- Dashboard showing task statistics
-- Task list with edit and delete options
-- Responsive design for mobile devices
+
 
 ## Design Features
 
@@ -236,3 +236,4 @@ task-manager/
 ### Backend Deployment : https://ardentix-task.onrender.com
 
 ### Frontend Deployment : https://ardentix-task-1.onrender.com
+
